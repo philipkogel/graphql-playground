@@ -20,15 +20,17 @@ const resolvers = {
 }
 
 // server setup
-const server = new ApolloServer({
-  typeDefs,
-  resolvers
-});
+async function startServer() {
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers
+  });
 
-const { url } = await startStandaloneServer(server, {
-  listen: {
-    port: 4000,
-  }
-});
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: 4000 }
+  });
 
-console.log("Server ready at port", 4000)
+  console.log(`Server ready at ${url}`);
+}
+
+startServer().catch(console.error);

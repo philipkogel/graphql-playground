@@ -1,25 +1,22 @@
 {
   "name": "graphql-playground",
   "version": "1.0.0",
-  "description": "",
+  "description": "GraphQL Playground server with Apollo",
+  "main": "dist/index.js",
+  "type": "module",
   "scripts": {
     "compile": "tsc",
-    "dev2": "nodemon",
-    "dev": "node --loader ts-node/esm src/index.ts",
+    "dev": "nodemon --exec node --experimental-specifier-resolution=node --loader ts-node/esm src/index.ts",
     "start": "npm run compile && node ./dist/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
   "dependencies": {
     "@apollo/server": "^4.11.2",
     "graphql": "^16.10.0"
   },
   "devDependencies": {
-    "@types/node": "^22.10.4",
-    "nodemon": "^3.1.9",
+    "@types/node": "^20.11.0",
+    "nodemon": "^3.0.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.3.3"
   }
 }
