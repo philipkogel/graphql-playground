@@ -25,6 +25,24 @@ const resolvers = {
     author(_: any, args: { id: string }) {
       return db.authors.find((author) => author.id === args.id);
     }
+  },
+  Game: {
+    reviews(parent: { id: string}) {
+      return db.reviews.filter((review) => review.game_id === parent.id);
+    }
+  },
+  Author: {
+    reviews(parent: { id: string }) {
+      return db.reviews.filter((review) => review.author_id === parent.id);
+    }
+  },
+  Review: {
+    game(parent: { game_id: string }) {
+      return db.games.find((game) => game.id === parent.game_id);
+    },
+    author(parent: { author_id: string }) {
+      return db.authors.find((author) => author.id === parent.author_id);
+    }
   }
 }
 
