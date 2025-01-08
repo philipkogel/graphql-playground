@@ -43,6 +43,19 @@ const resolvers = {
     author(parent: { author_id: string }) {
       return db.authors.find((author) => author.id === parent.author_id);
     }
+  },
+  Mutation: {
+    deleteGame(_: any, args: { id: string }) {
+      db.games = db.games.filter((game) => game.id !== args.id);
+
+      return db.games;
+    },
+    addGame(_: any, args: { game: { title: string, platform: string[] } }) {
+      let game = { ...args.game, id: String(db.games.length + 1) };
+      db.games.push(game);
+
+      return game;
+    }
   }
 }
 
