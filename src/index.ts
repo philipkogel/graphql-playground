@@ -7,8 +7,8 @@ import { typeDefs } from './schema';
 
 const resolvers = {
   Query: {
-    games() {
-      return db.games;
+    games(_: any, args: { limit: number, offset: number }) {
+      return db.games.slice(args.offset, args.offset + args.limit);
     },
     game(_: any, args: { id: string }) {
       return db.games.find((game) => game.id === args.id);
@@ -55,6 +55,19 @@ const resolvers = {
       db.games.push(game);
 
       return game;
+    },
+    updateGame(_: any, args: { id: string, edits: { title?: string, platform?: string[] } }) {
+      let updatedGame;
+      db.games = db.games.map((game) => {
+        if (game.id === args.id) {
+          updatedGame = { ...game, ...args.edits };
+          return updatedGame;
+        }
+
+        return game;
+      })
+
+      return updatedGame;
     }
   }
 }
